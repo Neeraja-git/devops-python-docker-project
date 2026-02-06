@@ -34,7 +34,7 @@ pipeline {
               echo "waiting for application to start..."
               sleep 5
                    
-              APP_IP=$(docker inspect -f '{{range.Networksettings.Networks}}{{.IPAdress}}{{end}}' python_app)
+              APP_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' python_app)
 
               echo "App IP is $APP_IP"
               curl -f http://$APP_IP:5000
