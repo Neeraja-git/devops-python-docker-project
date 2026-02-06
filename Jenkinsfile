@@ -22,9 +22,9 @@ pipeline {
              sh '''
              docker rm -f python_app || true
              docker run -d \
-               -p 5001:5000 \ 
-               --name python_app \ 
-               $IMAGE_NAME:$IMAGE_TAG
+               -p 5001:5000 \
+               --name python_app \
+               devops-python-app:${BUILD_NUMBER}
              '''
 }
 }
