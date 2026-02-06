@@ -28,6 +28,17 @@ pipeline {
              '''
 }
 }
+       stage("Health check") {
+          steps {
+              sh '''
+              echo "waiting for application to start..."
+              sleep 5
+
+              echo "Checking application health..."
+              curl -f http://localhost:5001 ||exit 1
+              '''
+}
+}
 }
      post {
         always {
