@@ -12,7 +12,7 @@ pipeline {
               sh 'docker build -t devops-python-app .'
 } 
 }
-       stage('Run Containe') {
+       stage('Run Container') {
           steps {
              sh '''
              docker rm -f python_app || true
