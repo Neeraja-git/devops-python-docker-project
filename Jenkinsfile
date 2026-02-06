@@ -16,7 +16,7 @@ pipeline {
           steps {
              sh '''
              docker rm -f python_app || true
-             docker run -d -p 50000:50000 --name python_app devops-python-app
+             docker run -d -p 5010:5000 --name python_app devops-python-app
              '''
 }
 }
