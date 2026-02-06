@@ -29,4 +29,12 @@ pipeline {
 }
 }
 }
+     post {
+        always {
+             sh '''
+             echo "Cleaning unused Docker resources..."
+             docker image prune -f
+             '''
+}
+}
 }
