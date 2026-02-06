@@ -1,6 +1,9 @@
 pipeline {   
     agent any
-
+    environment {
+        IMAGE_NAME = "devops-python-app"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+}
     stages {
        stage('checkout code'){
           steps {
@@ -9,14 +12,19 @@ pipeline {
 }
        stage('Build Docker Image'){
           steps {
-              sh 'docker build -t devops-python-app .'
+              sh '''
+              docker build -t $IMAGE_NAME:$IMAGE_TAG .
+              '''
 } 
 }
        stage('Run Container') {
           steps {
              sh '''
              docker rm -f python_app || true
-             docker run -d -p 5010:5000 --name python_app devops-python-app
+             docker run -d \
+               -p 5001:5000 \ 
+               --name python_app \ 
+               $IMAGE_NAME:$IMAGE_TAG
              '''
 }
 }
