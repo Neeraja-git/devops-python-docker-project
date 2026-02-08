@@ -1,12 +1,13 @@
 pipeline {   
     agent any
+
     environment {
         IMAGE_NAME = "devops-python-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
 }
-parameters {
-    string(name: 'IMAGE_NAME', defaultValue: 'devops-python-app')
-    string(name: 'APP_PORT'. defaultValue: '5001')
+    parameters {
+        string(name: 'IMAGE_NAME', defaultValue: 'devops-python-app')
+        .string(name: 'APP_PORT', defaultValue: '5001', description: 'Application port')
 }
     stages {
        stage('checkout code'){
