@@ -38,7 +38,7 @@ pipeline {
               sh '''
               echo "waiting for application to start..."
               sleep 10
-              curl -f http://host.docker.internal:5001
+              curl -f http://localhost:5001
               '''
 }
 }
@@ -70,8 +70,7 @@ pipeline {
         always {
              sh '''
              echo "Cleaning unused Docker resources..."
-             dock
-er image prune -f
+             docker image prune -f
              '''
 }
 }
