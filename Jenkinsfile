@@ -33,7 +33,7 @@ pipeline {
               sh '''
               echo "waiting for application to start..."
               sleep 5
-              curl -f http://localhost:5001 || exixt 1
+              curl -f http://localhost:5001 || exit 1
               '''
 }
 }
