@@ -7,7 +7,7 @@ pipeline {
 }
     parameters {
         string(name: 'IMAGE_NAME', defaultValue: 'devops-python-app')
-        .string(name: 'APP_PORT', defaultValue: '5001', description: 'Application port')
+        string(name: 'APP_PORT', defaultValue: '5001', description: 'Application port')
 }
     stages {
        stage('checkout code'){
