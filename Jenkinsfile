@@ -32,18 +32,8 @@ pipeline {
           steps {
               sh '''
               echo "waiting for application to start..."
-             /* for i in {1..10}; do
-              //    if curl -f http:localhoste:5001; then
-               //       echo "Application is bhbealthy"
-                //      exit 0
-                  fi
-                  echo "Retrying..."
-                  sleep 5
-                   
-             done*/
               sleep 5
-              echo "Checking application health ionside container..."
-              docker exec python_app curl -f http://localhost:5000
+              curl -f http://localhost:5001 || exixt 1
               '''
 }
 }
