@@ -32,8 +32,8 @@ pipeline {
           steps {
               sh '''
               echo "waiting for application to start..."
-              sleep 5
-              curl -f http://localhost:5001 || exit 1
+              sleep 10
+              curl -f http://host.docker.internal:5001
               '''
 }
 }
