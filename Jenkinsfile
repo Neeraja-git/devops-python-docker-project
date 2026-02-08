@@ -4,6 +4,10 @@ pipeline {
         IMAGE_NAME = "devops-python-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
 }
+parameters {
+    string(name: 'IMAGE_NAME', defaultValue: 'devops-python-app')
+    string(name: 'APP_PORT'. defaultValue: '5001')
+}
     stages {
        stage('checkout code'){
           steps {
@@ -37,12 +41,36 @@ pipeline {
               '''
 }
 }
+       stage('Push Image to DockerHub') {
+          steps {
+              withCredentials([usernamePassword(
+                  CredentialsID: 'neerajaj532',
+                  usernameVariable: 'DOCKER_USER',
+                  passwordVariable: 'DOCKER_PASS'
+       )]){
+           sh '''
+             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+             docker tag devops-python-app:${BUILD_NUMBER} $DOCKER_USER/devops-python-app:${BUILD_NUMBER}
+             docker push $DOCKER_USER/devops-python-app:${BUILD_NUMBER}
+           '''
+}
+}
+}       
+       stage('Deploy to kubernetes') {
+          steps {
+             sh '''
+               kubectl apply -f deployement.yaml
+               kubectl apply -f service.yaml
+              '''
+}
+}
 }
      post {
         always {
              sh '''
              echo "Cleaning unused Docker resources..."
-             docker image prune -f
+             dock
+er image prune -f
              '''
 }
 }
